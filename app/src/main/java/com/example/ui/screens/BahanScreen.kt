@@ -30,6 +30,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.zIndex
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.draw.clip
@@ -342,56 +343,6 @@ fun BahanScreen(
                         }
                     }
 
-                    // 2. TAMBAH (Tengah)
-                    LunarisCard(
-                        shape = RoundedCornerShape(12.dp),
-                        colors = CardDefaults.cardColors(
-                            containerColor = if (isDark) MaterialTheme.colorScheme.primaryContainer else Color(0xFFF5F3FF),
-                            contentColor = if (isDark) MaterialTheme.colorScheme.onPrimaryContainer else DeepPurpleText
-                        ),
-                        border = BorderStroke(1.5.dp, MaterialTheme.colorScheme.primary),
-                        modifier = Modifier
-                            .weight(1f)
-                            .height(44.dp)
-                            .clip(RoundedCornerShape(12.dp))
-                            .clickable {
-                                categoryInput = categories.firstOrNull { it.name == "Logistik" }?.name ?: categories.firstOrNull()?.name ?: "Logistik"
-                                unitInput = units.firstOrNull()?.name ?: ""
-                                merekBahanInput = merekBahanList.firstOrNull() ?: ""
-                                ruangInput = ruangList.firstOrNull() ?: ""
-                                sumberDanaInput = "Belum Diketahui / Kosongkan"
-                                kondisiInput = kondisiList.firstOrNull() ?: "Normal"
-                                nameInput = ""
-                                initialStockInput = "1"
-                                keteranganInput = ""
-                                showAddDialog = true
-                            }
-                            .testTag("btn_tambah_bahan")
-                    ) {
-                        Column(
-                            modifier = Modifier.fillMaxSize().padding(vertical = 4.dp, horizontal = 2.dp),
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.Center
-                        ) {
-                            Icon(
-                                imageVector = Icons.Default.Add,
-                                contentDescription = "Tambah",
-                                tint = if (isDark) MaterialTheme.colorScheme.primary else DeepPurpleText,
-                                modifier = Modifier.size(16.dp)
-                            )
-                            Spacer(modifier = Modifier.height(2.dp))
-                            Text(
-                                text = "Tambah Bahan",
-                                style = MaterialTheme.typography.bodyMedium.copy(
-                                    fontWeight = FontWeight.ExtraBold,
-                                    fontSize = 11.sp
-                                ),
-                                maxLines = 1,
-                                textAlign = TextAlign.Center
-                            )
-                        }
-                    }
-
                     // 3. UNDUH (Kanan)
                     LunarisCard(
                         shape = RoundedCornerShape(12.dp),
@@ -540,7 +491,7 @@ fun BahanScreen(
                     LazyColumn(
                         state = lazyListState,
                         verticalArrangement = Arrangement.spacedBy(16.dp),
-                        contentPadding = PaddingValues(bottom = 80.dp),
+                        contentPadding = PaddingValues(bottom = 160.dp),
                         modifier = Modifier
                             .fillMaxWidth()
                             .weight(1f)
@@ -658,6 +609,36 @@ fun BahanScreen(
                         }
                     }
                 }
+            }
+
+            FloatingActionButton(
+                onClick = {
+                    categoryInput = categories.firstOrNull { it.name == "Logistik" }?.name ?: categories.firstOrNull()?.name ?: "Logistik"
+                    unitInput = units.firstOrNull()?.name ?: ""
+                    merekBahanInput = merekBahanList.firstOrNull() ?: ""
+                    ruangInput = ruangList.firstOrNull() ?: ""
+                    sumberDanaInput = "Belum Diketahui / Kosongkan"
+                    kondisiInput = kondisiList.firstOrNull() ?: "Normal"
+                    nameInput = ""
+                    initialStockInput = "1"
+                    keteranganInput = ""
+                    showAddDialog = true
+                },
+                containerColor = MaterialTheme.colorScheme.primary,
+                contentColor = MaterialTheme.colorScheme.onPrimary,
+                elevation = FloatingActionButtonDefaults.elevation(defaultElevation = 6.dp),
+                shape = RoundedCornerShape(16.dp),
+                modifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(bottom = 100.dp, end = 16.dp)
+                    .zIndex(5f)
+                    .testTag("btn_tambah_bahan")
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Add,
+                    contentDescription = "Tambah Bahan Baru",
+                    tint = MaterialTheme.colorScheme.onPrimary
+                )
             }
 
             // Dialog Tambah Bahan Baru

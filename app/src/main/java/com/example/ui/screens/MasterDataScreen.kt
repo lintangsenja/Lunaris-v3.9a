@@ -971,94 +971,99 @@ fun KelolaKategoriTab(viewModel: InventoryViewModel) {
     var addInput by remember { mutableStateOf("") }
     var editInput by remember { mutableStateOf("") }
 
-    Column(modifier = Modifier.fillMaxSize().padding(start = 16.dp, end = 16.dp, top = 12.dp, bottom = 0.dp)) {
-        // Add Category Section
-        Button(
-            onClick = {
-                addInput = ""
-                showAddDialog = true
-            },
-            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
-            shape = RoundedCornerShape(16.dp),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 12.dp)
-                .height(48.dp)
-                .testTag("btn_tambah_kategori")
-        ) {
-            Icon(imageVector = Icons.Default.Add, contentDescription = "Tambah Kategori")
-            Spacer(modifier = Modifier.width(8.dp))
-            Text("Tambah Kategori Baru", fontWeight = FontWeight.Bold)
-        }
-
-        if (categories.isEmpty()) {
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                Text("Data belum tersedia.", color = if (isDark) MaterialTheme.colorScheme.onSurfaceVariant else Color.Gray)
-            }
-        } else {
-            LazyColumn(
-                verticalArrangement = Arrangement.spacedBy(12.dp),
-                contentPadding = PaddingValues(bottom = 80.dp),
-                modifier = Modifier.fillMaxSize()
-            ) {
-                items(categories) { category ->
-                    LunarisCard(
-                        shape = RoundedCornerShape(16.dp),
-                        elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
-                        colors = CardDefaults.cardColors(
-                            containerColor = if (isDark) MaterialTheme.colorScheme.surfaceVariant else Color(0xFFF8FAFC)
-                        ),
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        Row(
-                            modifier = Modifier
-                                .padding(horizontal = 16.dp, vertical = 12.dp)
-                                .fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically
+    Box(modifier = Modifier.fillMaxSize()) {
+        Column(modifier = Modifier.fillMaxSize().padding(start = 16.dp, end = 16.dp, top = 12.dp, bottom = 0.dp)) {
+            if (categories.isEmpty()) {
+                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    Text("Data belum tersedia.", color = if (isDark) MaterialTheme.colorScheme.onSurfaceVariant else Color.Gray)
+                }
+            } else {
+                LazyColumn(
+                    verticalArrangement = Arrangement.spacedBy(12.dp),
+                    contentPadding = PaddingValues(bottom = 160.dp),
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    items(categories) { category ->
+                        LunarisCard(
+                            shape = RoundedCornerShape(16.dp),
+                            elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
+                            colors = CardDefaults.cardColors(
+                                containerColor = if (isDark) MaterialTheme.colorScheme.surfaceVariant else Color(0xFFF8FAFC)
+                            ),
+                            modifier = Modifier.fillMaxWidth()
                         ) {
-                            Text(
-                                text = category.name,
-                                fontWeight = FontWeight.Bold,
-                                fontSize = 15.sp,
-                                color = MaterialTheme.colorScheme.onSurface,
-                                modifier = Modifier.weight(1f)
-                            )
+                            Row(
+                                modifier = Modifier
+                                    .padding(horizontal = 16.dp, vertical = 12.dp)
+                                    .fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text(
+                                    text = category.name,
+                                    fontWeight = FontWeight.Bold,
+                                    fontSize = 15.sp,
+                                    color = MaterialTheme.colorScheme.onSurface,
+                                    modifier = Modifier.weight(1f)
+                                )
 
-                            Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                                IconButton(
-                                    onClick = {
-                                        selectedCategoryForEdit = category
-                                        editInput = category.name
-                                        showEditDialog = true
-                                    },
-                                    modifier = Modifier.testTag("edit_kategori_${category.id}")
-                                ) {
-                                    Icon(
-                                        imageVector = Icons.Default.Edit,
-                                        contentDescription = "Ubah",
-                                        tint = MaterialTheme.colorScheme.secondary
-                                    )
-                                }
+                                Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                                    IconButton(
+                                        onClick = {
+                                            selectedCategoryForEdit = category
+                                            editInput = category.name
+                                            showEditDialog = true
+                                        },
+                                        modifier = Modifier.testTag("edit_kategori_${category.id}")
+                                    ) {
+                                        Icon(
+                                            imageVector = Icons.Default.Edit,
+                                            contentDescription = "Ubah",
+                                            tint = MaterialTheme.colorScheme.secondary
+                                        )
+                                    }
 
-                                IconButton(
-                                    onClick = {
-                                        selectedCategoryForDelete = category
-                                        showDeleteDialog = true
-                                    },
-                                    modifier = Modifier.testTag("delete_kategori_${category.id}")
-                                ) {
-                                    Icon(
-                                        imageVector = Icons.Default.Delete,
-                                        contentDescription = "Hapus",
-                                        tint = MaterialTheme.colorScheme.error
-                                    )
+                                    IconButton(
+                                        onClick = {
+                                            selectedCategoryForDelete = category
+                                            showDeleteDialog = true
+                                        },
+                                        modifier = Modifier.testTag("delete_kategori_${category.id}")
+                                    ) {
+                                        Icon(
+                                            imageVector = Icons.Default.Delete,
+                                            contentDescription = "Hapus",
+                                            tint = MaterialTheme.colorScheme.error
+                                        )
+                                    }
                                 }
                             }
                         }
                     }
                 }
             }
+        }
+
+        FloatingActionButton(
+            onClick = {
+                addInput = ""
+                showAddDialog = true
+            },
+            containerColor = MaterialTheme.colorScheme.primary,
+            contentColor = MaterialTheme.colorScheme.onPrimary,
+            elevation = FloatingActionButtonDefaults.elevation(defaultElevation = 6.dp),
+            shape = RoundedCornerShape(16.dp),
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(bottom = 100.dp, end = 16.dp)
+                .zIndex(5f)
+                .testTag("btn_tambah_kategori")
+        ) {
+            Icon(
+                imageVector = Icons.Default.Add,
+                contentDescription = "Tambah Kategori Baru",
+                tint = MaterialTheme.colorScheme.onPrimary
+            )
         }
     }
 
@@ -1212,94 +1217,99 @@ fun KelolaSatuanTab(viewModel: InventoryViewModel) {
     var addInput by remember { mutableStateOf("") }
     var editInput by remember { mutableStateOf("") }
 
-    Column(modifier = Modifier.fillMaxSize().padding(start = 16.dp, end = 16.dp, top = 12.dp, bottom = 0.dp)) {
-        // Add Unit Section
-        Button(
-            onClick = {
-                addInput = ""
-                showAddDialog = true
-            },
-            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
-            shape = RoundedCornerShape(16.dp),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 12.dp)
-                .height(48.dp)
-                .testTag("btn_tambah_satuan")
-        ) {
-            Icon(imageVector = Icons.Default.Add, contentDescription = "Tambah Satuan")
-            Spacer(modifier = Modifier.width(8.dp))
-            Text("Tambah Satuan Baru", fontWeight = FontWeight.Bold)
-        }
-
-        if (units.isEmpty()) {
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                Text("Data belum tersedia.", color = if (isDark) MaterialTheme.colorScheme.onSurfaceVariant else Color.Gray)
-            }
-        } else {
-            LazyColumn(
-                verticalArrangement = Arrangement.spacedBy(12.dp),
-                contentPadding = PaddingValues(bottom = 80.dp),
-                modifier = Modifier.fillMaxSize()
-            ) {
-                items(units) { unit ->
-                    LunarisCard(
-                        shape = RoundedCornerShape(16.dp),
-                        elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
-                        colors = CardDefaults.cardColors(
-                            containerColor = if (isDark) MaterialTheme.colorScheme.surfaceVariant else Color(0xFFF8FAFC)
-                        ),
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        Row(
-                            modifier = Modifier
-                                .padding(horizontal = 16.dp, vertical = 12.dp)
-                                .fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically
+    Box(modifier = Modifier.fillMaxSize()) {
+        Column(modifier = Modifier.fillMaxSize().padding(start = 16.dp, end = 16.dp, top = 12.dp, bottom = 0.dp)) {
+            if (units.isEmpty()) {
+                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    Text("Data belum tersedia.", color = if (isDark) MaterialTheme.colorScheme.onSurfaceVariant else Color.Gray)
+                }
+            } else {
+                LazyColumn(
+                    verticalArrangement = Arrangement.spacedBy(12.dp),
+                    contentPadding = PaddingValues(bottom = 160.dp),
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    items(units) { unit ->
+                        LunarisCard(
+                            shape = RoundedCornerShape(16.dp),
+                            elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
+                            colors = CardDefaults.cardColors(
+                                containerColor = if (isDark) MaterialTheme.colorScheme.surfaceVariant else Color(0xFFF8FAFC)
+                            ),
+                            modifier = Modifier.fillMaxWidth()
                         ) {
-                            Text(
-                                text = unit.name,
-                                fontWeight = FontWeight.Bold,
-                                fontSize = 15.sp,
-                                color = MaterialTheme.colorScheme.onSurface,
-                                modifier = Modifier.weight(1f)
-                            )
+                            Row(
+                                modifier = Modifier
+                                    .padding(horizontal = 16.dp, vertical = 12.dp)
+                                    .fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text(
+                                    text = unit.name,
+                                    fontWeight = FontWeight.Bold,
+                                    fontSize = 15.sp,
+                                    color = MaterialTheme.colorScheme.onSurface,
+                                    modifier = Modifier.weight(1f)
+                                )
 
-                            Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                                IconButton(
-                                    onClick = {
-                                        selectedUnitForEdit = unit
-                                        editInput = unit.name
-                                        showEditDialog = true
-                                    },
-                                    modifier = Modifier.testTag("edit_satuan_${unit.id}")
-                                ) {
-                                    Icon(
-                                        imageVector = Icons.Default.Edit,
-                                        contentDescription = "Ubah",
-                                        tint = MaterialTheme.colorScheme.secondary
-                                    )
-                                }
+                                Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                                    IconButton(
+                                        onClick = {
+                                            selectedUnitForEdit = unit
+                                            editInput = unit.name
+                                            showEditDialog = true
+                                        },
+                                        modifier = Modifier.testTag("edit_satuan_${unit.id}")
+                                    ) {
+                                        Icon(
+                                            imageVector = Icons.Default.Edit,
+                                            contentDescription = "Ubah",
+                                            tint = MaterialTheme.colorScheme.secondary
+                                        )
+                                    }
 
-                                IconButton(
-                                    onClick = {
-                                        selectedUnitForDelete = unit
-                                        showDeleteDialog = true
-                                    },
-                                    modifier = Modifier.testTag("delete_satuan_${unit.id}")
-                                ) {
-                                    Icon(
-                                        imageVector = Icons.Default.Delete,
-                                        contentDescription = "Hapus",
-                                        tint = MaterialTheme.colorScheme.error
-                                    )
+                                    IconButton(
+                                        onClick = {
+                                            selectedUnitForDelete = unit
+                                            showDeleteDialog = true
+                                        },
+                                        modifier = Modifier.testTag("delete_satuan_${unit.id}")
+                                    ) {
+                                        Icon(
+                                            imageVector = Icons.Default.Delete,
+                                            contentDescription = "Hapus",
+                                            tint = MaterialTheme.colorScheme.error
+                                        )
+                                    }
                                 }
                             }
                         }
                     }
                 }
             }
+        }
+
+        FloatingActionButton(
+            onClick = {
+                addInput = ""
+                showAddDialog = true
+            },
+            containerColor = MaterialTheme.colorScheme.primary,
+            contentColor = MaterialTheme.colorScheme.onPrimary,
+            elevation = FloatingActionButtonDefaults.elevation(defaultElevation = 6.dp),
+            shape = RoundedCornerShape(16.dp),
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(bottom = 100.dp, end = 16.dp)
+                .zIndex(5f)
+                .testTag("btn_tambah_satuan")
+        ) {
+            Icon(
+                imageVector = Icons.Default.Add,
+                contentDescription = "Tambah Satuan Baru",
+                tint = MaterialTheme.colorScheme.onPrimary
+            )
         }
     }
 
@@ -1558,94 +1568,99 @@ fun KelolaSimpleListTab(
     var editInput by remember { mutableStateOf("") }
 
     val isDark = false
-    Column(modifier = Modifier.fillMaxSize().padding(start = 16.dp, end = 16.dp, top = 12.dp, bottom = 0.dp)) {
-        // Add Button
-        Button(
-            onClick = {
-                addInput = ""
-                showAddDialog = true
-            },
-            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
-            shape = RoundedCornerShape(16.dp),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 12.dp)
-                .height(48.dp)
-                .testTag("btn_tambah_${testTagPrefix}")
-        ) {
-            Icon(imageVector = Icons.Default.Add, contentDescription = "Tambah $menuName")
-            Spacer(modifier = Modifier.width(8.dp))
-            Text("Tambah $menuName Baru", fontWeight = FontWeight.Bold)
-        }
-
-        if (items.isEmpty()) {
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                Text(placeholder, color = if (isDark) MaterialTheme.colorScheme.onSurfaceVariant else Color.Gray)
-            }
-        } else {
-            LazyColumn(
-                verticalArrangement = Arrangement.spacedBy(12.dp),
-                contentPadding = PaddingValues(bottom = 80.dp),
-                modifier = Modifier.fillMaxSize()
-            ) {
-                itemsIndexed(items) { index, item ->
-                    LunarisCard(
-                        shape = RoundedCornerShape(16.dp),
-                        elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
-                        colors = CardDefaults.cardColors(
-                            containerColor = if (isDark) MaterialTheme.colorScheme.surfaceVariant else Color(0xFFF8FAFC)
-                        ),
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        Row(
-                            modifier = Modifier
-                                .padding(horizontal = 16.dp, vertical = 12.dp)
-                                .fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically
+    Box(modifier = Modifier.fillMaxSize()) {
+        Column(modifier = Modifier.fillMaxSize().padding(start = 16.dp, end = 16.dp, top = 12.dp, bottom = 0.dp)) {
+            if (items.isEmpty()) {
+                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    Text(placeholder, color = if (isDark) MaterialTheme.colorScheme.onSurfaceVariant else Color.Gray)
+                }
+            } else {
+                LazyColumn(
+                    verticalArrangement = Arrangement.spacedBy(12.dp),
+                    contentPadding = PaddingValues(bottom = 160.dp),
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    itemsIndexed(items) { index, item ->
+                        LunarisCard(
+                            shape = RoundedCornerShape(16.dp),
+                            elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
+                            colors = CardDefaults.cardColors(
+                                containerColor = if (isDark) MaterialTheme.colorScheme.surfaceVariant else Color(0xFFF8FAFC)
+                            ),
+                            modifier = Modifier.fillMaxWidth()
                         ) {
-                            Text(
-                                text = item,
-                                fontWeight = FontWeight.Bold,
-                                fontSize = 15.sp,
-                                color = MaterialTheme.colorScheme.onSurface,
-                                modifier = Modifier.weight(1f)
-                            )
+                            Row(
+                                modifier = Modifier
+                                    .padding(horizontal = 16.dp, vertical = 12.dp)
+                                    .fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text(
+                                    text = item,
+                                    fontWeight = FontWeight.Bold,
+                                    fontSize = 15.sp,
+                                    color = MaterialTheme.colorScheme.onSurface,
+                                    modifier = Modifier.weight(1f)
+                                )
 
-                            Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                                IconButton(
-                                    onClick = {
-                                        selectedIndexForEdit = index
-                                        editInput = item
-                                        showEditDialog = true
-                                    },
-                                    modifier = Modifier.testTag("edit_${testTagPrefix}_$index")
-                                ) {
-                                    Icon(
-                                        imageVector = Icons.Default.Edit,
-                                        contentDescription = "Ubah",
-                                        tint = MaterialTheme.colorScheme.secondary
-                                    )
-                                }
+                                Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                                    IconButton(
+                                        onClick = {
+                                            selectedIndexForEdit = index
+                                            editInput = item
+                                            showEditDialog = true
+                                        },
+                                        modifier = Modifier.testTag("edit_${testTagPrefix}_$index")
+                                    ) {
+                                        Icon(
+                                            imageVector = Icons.Default.Edit,
+                                            contentDescription = "Ubah",
+                                            tint = MaterialTheme.colorScheme.secondary
+                                        )
+                                    }
 
-                                IconButton(
-                                    onClick = {
-                                        selectedIndexForDelete = index
-                                        showDeleteDialog = true
-                                    },
-                                    modifier = Modifier.testTag("delete_${testTagPrefix}_$index")
-                                ) {
-                                    Icon(
-                                        imageVector = Icons.Default.Delete,
-                                        contentDescription = "Hapus",
-                                        tint = MaterialTheme.colorScheme.error
-                                    )
+                                    IconButton(
+                                        onClick = {
+                                            selectedIndexForDelete = index
+                                            showDeleteDialog = true
+                                        },
+                                        modifier = Modifier.testTag("delete_${testTagPrefix}_$index")
+                                    ) {
+                                        Icon(
+                                            imageVector = Icons.Default.Delete,
+                                            contentDescription = "Hapus",
+                                            tint = MaterialTheme.colorScheme.error
+                                        )
+                                    }
                                 }
                             }
                         }
                     }
                 }
             }
+        }
+
+        FloatingActionButton(
+            onClick = {
+                addInput = ""
+                showAddDialog = true
+            },
+            containerColor = MaterialTheme.colorScheme.primary,
+            contentColor = MaterialTheme.colorScheme.onPrimary,
+            elevation = FloatingActionButtonDefaults.elevation(defaultElevation = 6.dp),
+            shape = RoundedCornerShape(16.dp),
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(bottom = 100.dp, end = 16.dp)
+                .zIndex(5f)
+                .testTag("btn_tambah_${testTagPrefix}")
+        ) {
+            Icon(
+                imageVector = Icons.Default.Add,
+                contentDescription = "Tambah $menuName Baru",
+                tint = MaterialTheme.colorScheme.onPrimary
+            )
         }
     }
 
@@ -2078,7 +2093,7 @@ fun KelolaGuruMapelTab(
             shape = RoundedCornerShape(16.dp),
             modifier = Modifier
                 .align(Alignment.BottomEnd)
-                .padding(bottom = 80.dp, end = 16.dp)
+                .padding(bottom = 100.dp, end = 16.dp)
                 .zIndex(5f)
                 .testTag("btn_tambah_guru_mapel")
         ) {
@@ -2630,7 +2645,7 @@ fun KelolaStafTab(
             shape = RoundedCornerShape(16.dp),
             modifier = Modifier
                 .align(Alignment.BottomEnd)
-                .padding(bottom = 80.dp, end = 16.dp)
+                .padding(bottom = 100.dp, end = 16.dp)
                 .zIndex(5f)
                 .testTag("btn_tambah_staf")
         ) {
