@@ -26,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.zIndex
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Brush
 import java.io.BufferedReader
@@ -1863,28 +1864,9 @@ fun KelolaGuruMapelTab(
         }
     }
 
-    Column(modifier = Modifier.fillMaxSize().padding(start = 16.dp, end = 16.dp, top = 12.dp, bottom = 0.dp)) {
-        Button(
-            onClick = {
-                addNama = ""
-                addNip = ""
-                addMapel = ""
-                showAddDialog = true
-            },
-            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
-            shape = RoundedCornerShape(16.dp),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 8.dp)
-                .height(48.dp)
-                .testTag("btn_tambah_guru_mapel")
-        ) {
-            Icon(imageVector = Icons.Default.Add, contentDescription = "Tambah Guru Mapel")
-            Spacer(modifier = Modifier.width(8.dp))
-            Text("Tambah Guru Mapel Baru", fontWeight = FontWeight.Bold)
-        }
-
-        // CSV Import/Export and Template Row
+    Box(modifier = Modifier.fillMaxSize()) {
+        Column(modifier = Modifier.fillMaxSize().padding(start = 16.dp, end = 16.dp, top = 12.dp, bottom = 0.dp)) {
+            // CSV Import/Export and Template Row
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -2080,6 +2062,31 @@ fun KelolaGuruMapelTab(
                     }
                 }
             }
+        }
+    }
+
+        FloatingActionButton(
+            onClick = {
+                addNama = ""
+                addNip = ""
+                addMapel = ""
+                showAddDialog = true
+            },
+            containerColor = MaterialTheme.colorScheme.primary,
+            contentColor = MaterialTheme.colorScheme.onPrimary,
+            elevation = FloatingActionButtonDefaults.elevation(defaultElevation = 6.dp),
+            shape = RoundedCornerShape(16.dp),
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(bottom = 80.dp, end = 16.dp)
+                .zIndex(5f)
+                .testTag("btn_tambah_guru_mapel")
+        ) {
+            Icon(
+                imageVector = Icons.Default.Add,
+                contentDescription = "Tambah Guru Mapel",
+                tint = MaterialTheme.colorScheme.onPrimary
+            )
         }
     }
 
@@ -2409,28 +2416,9 @@ fun KelolaStafTab(
         }
     }
 
-    Column(modifier = Modifier.fillMaxSize().padding(start = 16.dp, end = 16.dp, top = 12.dp, bottom = 0.dp)) {
-        Button(
-            onClick = {
-                addNama = ""
-                addNip = ""
-                addJabatan = ""
-                showAddDialog = true
-            },
-            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
-            shape = RoundedCornerShape(16.dp),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 8.dp)
-                .height(48.dp)
-                .testTag("btn_tambah_staf")
-        ) {
-            Icon(imageVector = Icons.Default.Add, contentDescription = "Tambah Staf")
-            Spacer(modifier = Modifier.width(8.dp))
-            Text("Tambah Staf Baru", fontWeight = FontWeight.Bold)
-        }
-
-        // CSV Import/Export and Template Row
+    Box(modifier = Modifier.fillMaxSize()) {
+        Column(modifier = Modifier.fillMaxSize().padding(start = 16.dp, end = 16.dp, top = 12.dp, bottom = 0.dp)) {
+            // CSV Import/Export and Template Row
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -2626,6 +2614,31 @@ fun KelolaStafTab(
                     }
                 }
             }
+        }
+    }
+
+        FloatingActionButton(
+            onClick = {
+                addNama = ""
+                addNip = ""
+                addJabatan = ""
+                showAddDialog = true
+            },
+            containerColor = MaterialTheme.colorScheme.primary,
+            contentColor = MaterialTheme.colorScheme.onPrimary,
+            elevation = FloatingActionButtonDefaults.elevation(defaultElevation = 6.dp),
+            shape = RoundedCornerShape(16.dp),
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(bottom = 80.dp, end = 16.dp)
+                .zIndex(5f)
+                .testTag("btn_tambah_staf")
+        ) {
+            Icon(
+                imageVector = Icons.Default.Add,
+                contentDescription = "Tambah Staf",
+                tint = MaterialTheme.colorScheme.onPrimary
+            )
         }
     }
 
