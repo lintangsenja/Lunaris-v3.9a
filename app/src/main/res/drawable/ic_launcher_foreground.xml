@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Glowing blue aura behind the geometric sphere -->
+    <path
+        android:fillColor="#1538BDF8"
+        android:pathData="M 62,54 m -24,0 a 24,24 0 1,1 48,0 a 24,24 0 1,1 -48,0" />
+
+    <!-- 1. Geometric Sphere Centered at (62, 54) with radius 20 -->
+    <!-- Outer boundary of the sphere -->
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="1.6"
+        android:fillColor="#1038BDF8"
+        android:pathData="M 62,54 m -20,0 a 20,20 0 1,1 40,0 a 20,20 0 1,1 -40,0" />
+
+    <!-- Horizontal center line -->
+    <path
+        android:strokeColor="#94A3B8"
+        android:strokeWidth="1.0"
+        android:pathData="M 42,54 L 82,54" />
+
+    <!-- Vertical center line -->
+    <path
+        android:strokeColor="#94A3B8"
+        android:strokeWidth="1.0"
+        android:pathData="M 62,34 L 62,74" />
+
+    <!-- Longitude Curve (Vertical Ellipse) 1 -->
+    <path
+        android:strokeColor="#E2E8F0"
+        android:strokeWidth="1.0"
+        android:fillColor="#00000000"
+        android:pathData="M 62,54 m -10,0 a 10,20 0 1,1 20,0 a 10,20 0 1,1 -20,0" />
+
+    <!-- Latitude Curve (Horizontal Ellipse) 1 -->
+    <path
+        android:strokeColor="#E2E8F0"
+        android:strokeWidth="1.0"
+        android:fillColor="#00000000"
+        android:pathData="M 62,54 m -20,0 a 20,10 0 1,1 40,0 a 20,10 0 1,1 -40,0" />
+
+    <!-- Outer Diagonal Ring (Rotated 45 deg) -->
+    <path
+        android:strokeColor="#7DD3FC"
+        android:strokeWidth="0.8"
+        android:fillColor="#00000000"
+        android:pathData="M 47.86,39.86 C 55.67,32.05 68.33,32.05 76.14,39.86 C 83.95,47.67 83.95,60.33 76.14,68.14 C 68.33,75.95 55.67,75.95 47.86,68.14 C 40.05,60.33 40.05,47.67 47.86,39.86 Z" />
+
+    <!-- Inner Diagonal Ring (Rotated -45 deg) -->
+    <path
+        android:strokeColor="#7DD3FC"
+        android:strokeWidth="0.8"
+        android:fillColor="#00000000"
+        android:pathData="M 76.14,39.86 C 83.95,47.67 83.95,60.33 76.14,68.14 C 68.33,75.95 55.67,75.95 47.86,68.14 C 40.05,60.33 40.05,47.67 47.86,39.86 C 55.67,32.05 68.33,32.05 76.14,39.86 Z" />
+
+    <!-- Additional geometric concentric inner circle -->
+    <path
+        android:strokeColor="#38BDF8"
+        android:strokeWidth="1.0"
+        android:fillColor="#00000000"
+        android:pathData="M 62,54 m -12,0 a 12,12 0 1,1 24,0 a 12,12 0 1,1 -24,0" />
+
+    <path
+        android:strokeColor="#38BDF8"
+        android:strokeWidth="0.8"
+        android:fillColor="#00000000"
+        android:pathData="M 62,54 m -6,0 a 6,6 0 1,1 12,0 a 6,6 0 1,1 -12,0" />
+
+    <!-- 2. Silver/White Crescent Moon Centered on the Left -->
+    <!-- Outer radius 28, Inner radius 22, offset to overlap perfectly -->
+    <path
+        android:fillColor="#F8FAFC"
+        android:strokeColor="#E2E8F0"
+        android:strokeWidth="0.5"
+        android:pathData="M 46,26 C 30.5,26 18,38.5 18,54 C 18,69.5 30.5,82 46,82 C 49,82 51.5,81.5 54,80.5 C 43,77 35,66.5 35,54 C 35,41.5 43,31 54,27.5 C 51.5,26.5 49,26 46,26 Z" />
+
+</vector>
